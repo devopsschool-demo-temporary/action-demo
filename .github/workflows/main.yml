@@ -1,26 +1,46 @@
-name: CI Pipeline
+name: Multi-Job Example
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 jobs:
-  pipeline:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build phase
-        run: echo "====== Build phase started ======"
+      - name: Echo build start
+        run: echo "Build phase started"
 
-      - name: Test phase
-        run: echo "====== Test phase started ======"
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Package phase
-        run: echo "====== Package phase started ======"
+      - name: Echo test start
+        run: echo "Test phase started"
 
-      - name: Release phase
-        run: echo "====== Release phase started ======"
+  package:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Echo package start
+        run: echo "Package phase started"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Echo release start
+        run: echo "Release phase started"
