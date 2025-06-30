@@ -1,0 +1,26 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build phase
+        run: echo "====== Build phase started ======"
+
+      - name: Test phase
+        run: echo "====== Test phase started ======"
+
+      - name: Package phase
+        run: echo "====== Package phase started ======"
+
+      - name: Release phase
+        run: echo "====== Release phase started ======"
